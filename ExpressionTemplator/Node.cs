@@ -6,10 +6,10 @@ namespace ExpressionTemplator
 {
     class Node
     {
-        public string text;
+        public ReadOnlyMemory<char> text;
         public bool IsTemplateParameter;
 
-        public Node(string text, bool isTemplateParameter)
+        public Node(ReadOnlyMemory<char> text, bool isTemplateParameter)
         {
             this.text = text;
             IsTemplateParameter = isTemplateParameter;

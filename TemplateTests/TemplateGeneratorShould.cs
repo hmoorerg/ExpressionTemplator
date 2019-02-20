@@ -22,7 +22,7 @@ namespace TemplateTests
 
             var template = _templateGenerator.CompileTemplate(input);
 
-            Assert.True(template(null) == input);
+            Assert.Equal(template(null), input);
         }
 
         [Fact]
@@ -44,22 +44,43 @@ namespace TemplateTests
 
 
         [Fact]
-        public void InsertTemplateValues()
+        public void InsertTemplateValue()
         {
-            string input = "this string has {{adjective}} values";
+            string input = "this string has {{count}} values";
 
             var template = _templateGenerator.CompileTemplate(input);
 
 
             Dictionary<string, string> data = new Dictionary<string, string>
             {
-                ["adjective"] = "special"
+                ["count"] = "many"
             };
 
             string output = template(data);
-            string expectedOutput = "this string has special values";
+            string expectedOutput = "this string has many values";
 
             Assert.True(output == expectedOutput);
         }
+
+        [Fact]
+        public void InsertMultipleTemplateValues()
+        {
+            string input = "this {{type}} has {{count}} values";
+
+            var template = _templateGenerator.CompileTemplate(input);
+
+
+            Dictionary<string, string> data = new Dictionary<string, string>
+            {
+                ["type"] = "string",
+                ["count"] = "many"
+            };
+
+            string output = template(data);
+            string expectedOutput = "this string has many values";
+
+            Assert.True(output == expectedOutput);
+        }
+
     }
 }
